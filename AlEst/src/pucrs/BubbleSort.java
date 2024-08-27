@@ -26,19 +26,21 @@ public class BubbleSort {
 
     public static void main(String args[]) {
         Random r = new Random();
-        int MAX = 10000;
-        int[] data = new int[MAX];
-        for(int i=0; i<data.length; i++)
-            data[i] = r.nextInt(data.length*10);
-
-        long start = System.nanoTime();
-        BubbleSort bs = new BubbleSort();
-        bs.sort(data);
-        long end = System.nanoTime();
-        //for(int i=0; i<data.length; i++)
-        //    System.out.print(data[i]+" ");
-        //System.out.println();
-        System.out.printf("Tempo para ordenar %d elementos: %d ns\n",MAX,bs.getOp());
+        for(int MAX = 10000;MAX<20000;MAX+=1000) {
+	        int[] data = new int[MAX];
+	        for(int i=0; i<data.length; i++)
+	            data[i] = r.nextInt(data.length*10);
+	
+	        long start = System.nanoTime();
+	        BubbleSort bs = new BubbleSort();
+	        bs.zeraOp();
+	        bs.sort(data);
+	        long end = System.nanoTime();
+	        //for(int i=0; i<data.length; i++)
+	        //    System.out.print(data[i]+" ");
+	        //System.out.println();
+	        System.out.printf("Tempo para ordenar %d elementos: %d ns\n",MAX,bs.getOp());
+        }
     }
 }
 
