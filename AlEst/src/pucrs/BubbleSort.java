@@ -12,8 +12,8 @@ public class BubbleSort {
         for(int i=0; i<values.length; i++) {
             boolean trocou = false;
             for(int j=0; j<values.length-i-1; j++) {
-            	contOp++;
                 if(values[j] > values[j+1]) {
+                	contOp++;
                     int temp = values[j];
                     values[j] = values[j+1];
                     values[j+1] = temp;
@@ -25,11 +25,11 @@ public class BubbleSort {
     }
 
     public static void main(String args[]) {
-        Random r = new Random();
-        for(int MAX = 10000;MAX<20000;MAX+=1000) {
+        
+        for(int MAX = 10000;MAX<=50000;MAX+=40000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
-	            data[i] = r.nextInt(data.length*10);
+	            data[i] = data.length- i -1;
 	
 	        long start = System.nanoTime();
 	        BubbleSort bs = new BubbleSort();
@@ -39,7 +39,7 @@ public class BubbleSort {
 	        //for(int i=0; i<data.length; i++)
 	        //    System.out.print(data[i]+" ");
 	        //System.out.println();
-	        System.out.printf("Tempo para ordenar %d elementos: %d ns\n",MAX,bs.getOp());
+	        System.out.printf("Tempo para ordenar %d elementos: %d , Operações: %d\n",MAX,(end-start),bs.getOp());
         }
     }
 }

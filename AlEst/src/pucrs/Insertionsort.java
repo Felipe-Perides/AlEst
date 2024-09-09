@@ -23,24 +23,24 @@ public class Insertionsort
             	contOp++;
                 data[j] = data[j-1];
                 j--;
-                data[j] = temp;
             }
+            data[j] = temp;
         }
     }
 
     public static void main(String args[]) {
-        Random r = new Random();
-        for(int MAX = 10000; MAX<20000;MAX+=1000) {
+        //Random r = new Random();
+        for(int MAX = 10000; MAX<=50000;MAX+=40000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
-	            data[i] = r.nextInt(data.length*10);
+	            data[i] = data.length- i -1;
 	
 	        Insertionsort is = new Insertionsort(data);
 	        long start = System.nanoTime();
 	        is.zeraOp();
 	        is.sort();
 	        long end = System.nanoTime();
-	        System.out.printf("Tempo para ordenar %d elementos: %d ns\n",MAX,is.getOp());
+	        System.out.printf("Tempo para ordenar %d elementos: %d ns, Operações: %d\n",MAX,(end-start),is.getOp());
         }
     }
 }
