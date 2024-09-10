@@ -54,7 +54,7 @@ public class Mergesort {
 
     public static void main(String args[]) {
         Random r = new Random();
-        for(int MAX = 10000;MAX<=50000;MAX+=40000) {
+        for(int MAX = 1000;MAX<=10000;MAX+=1000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
 	            data[i] = data.length- i -1;
