@@ -57,7 +57,7 @@ public class Mergesort {
         for(int MAX = 1000;MAX<=10000;MAX+=1000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
-	            data[i] = data.length- i -1;
+	            data[i] = r.nextInt(data.length*10);
 	
 	        
 	        long start = System.nanoTime();

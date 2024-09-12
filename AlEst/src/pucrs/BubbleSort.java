@@ -25,11 +25,11 @@ public class BubbleSort {
     }
 
     public static void main(String args[]) {
-        
+    	Random r = new Random();
         for(int MAX = 10000;MAX<=50000;MAX+=40000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
-	            data[i] = data.length- i -1;
+	            data[i] = r.nextInt(data.length*10);
 	
 	        long start = System.nanoTime();
 	        BubbleSort bs = new BubbleSort();
