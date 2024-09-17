@@ -50,12 +50,17 @@ public class Quicksort
     }
 
     public static void main(String args[]) {
-        Random r = new Random();
-        for(int MAX = 1000;MAX<=10000;MAX+=1000) {
+        /*
+         * Random r = new Random();
+        for(int MAX = 1000;MAX<=25000;MAX+=1000) {
 	        int[] data = new int[MAX];
 	        for(int i=0; i<data.length; i++)
 	            data[i] = r.nextInt(data.length*10);
-
+         */
+    	for(int MAX = 1000; MAX<=25000; MAX+=1000) {
+	    	int[] data = new int[MAX];
+	    	for(int i = 0; i<data.length; i++)
+	    		data[i] = MAX - i - 1; 
 	        Quicksort qs = new Quicksort(data);
 	        qs.zeraOp();
 	        long start = System.nanoTime();
@@ -68,4 +73,3 @@ public class Quicksort
         }
     }
 }
-
