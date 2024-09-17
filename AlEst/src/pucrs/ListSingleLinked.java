@@ -2,7 +2,7 @@ package pucrs;
 
 import java.security.InvalidParameterException;
 
-public class ListSingleLinked {
+public class ListSingleLinked implements ListTAD{
 	private class Node {
 	    public int element ;
 	    public Node next ;
@@ -119,6 +119,7 @@ public class ListSingleLinked {
 		    }
 		  return -1;
 	  }
+	  // retorna o index do ultimo elemento
 	  public int indexOf() {
 		  Node aux = head;
 		  for(int i = 0; i<count;i++) {
@@ -144,4 +145,54 @@ public class ListSingleLinked {
 
 
 	  }
+
+	@Override
+	public int set(int index, int element) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean remove(int element) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int removeByIndex(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int size() {
+		int cont = 0;
+		for(int i = 0; i<count; i++) {
+			cont++;
+		}
+		return cont;
+	}
+
+	@Override
+	public boolean contains(int element) {
+		Node aux = head;
+		for(int i = 0; i<count; i++) {
+			if(element==aux.element) {
+				return true;
+			}
+			aux = aux.next;
+		}
+		return false;
+	}
+
+	@Override
+	public void clear() {
+		
+	}
 }
