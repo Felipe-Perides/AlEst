@@ -1,5 +1,7 @@
 package pucrs;
 
+import java.util.NoSuchElementException;
+
 public class ListDoubleLinked implements ListTADdouble{
 	private Node header;
     private Node trailer;
@@ -63,18 +65,14 @@ public class ListDoubleLinked implements ListTADdouble{
         	}
         	header.next = n1;
         }else {
-        	Node n2 = null;
-    		Node n3 = null;
-    		Node n4 = header;
-        	for(int pos = 0; pos<index; pos++) {
-        		n2 = n4.prev;
-        		n3 = n4;
-        		n4 = n4.next;
+        	Node current = header.next;
+        	for(int i = 0; i<index-1; i++) {
+        		current = current.next;
         	}
-        	n1.next = n4;
-        	n1.prev = n3;
-        	n3.next = n1;
-        	if(n4 != null) {n4.prev = n1;}
+        	n1.next = current.next;
+            n1.prev = current;
+            current.next.prev = n1;
+            current.next = n1;
         }
         
         /*
@@ -131,9 +129,17 @@ public class ListDoubleLinked implements ListTADdouble{
      */
     @Override
     public int set(int index, int element) {
-        if ((index < 0) || (index >= count)) {
+    	Node ptr = header.next;
+    	if ((index < 0) || (index >= count || ptr == null)) {
             throw new IndexOutOfBoundsException("Index = " + index);
         }
+        for(int pos = 0; pos<index;pos++) {
+        	ptr = ptr.next;
+        }
+        int oldValue = ptr.item;
+        ptr.item = element;
+        return oldValue;
+        
         /*
         Node ptr = head;
         for (int pos = 0; pos < index; pos++)
@@ -155,6 +161,13 @@ public class ListDoubleLinked implements ListTADdouble{
 
     @Override
     public int removeByIndex(int index) {
+    	Node n = header.next;
+    	for(int i = 0; i<index-1; i++) {
+    		n = n.next;
+    	}
+    	int value = n.next.item;
+    	n.next = n.next.next;
+    	return value;
         /*
         Node aux = head;
         // Se for o início, basta avançar o head
@@ -200,6 +213,15 @@ public class ListDoubleLinked implements ListTADdouble{
 
     @Override
     public int indexOf(int element) {
+    	int index = 0;
+    	Node n1 = header.next;
+    	while(n1!=null) {
+    		if(n1.item == element) {
+    			return index;
+    		}
+    		index++;
+    	}
+    	return -1;
         /*
         Node ptr = head;
         for (int pos = 0; pos < count; pos++) {
@@ -213,6 +235,14 @@ public class ListDoubleLinked implements ListTADdouble{
 
     @Override
     public void clear() {
+    	Node n1 = header.next;
+    	while(n1!=null) {
+    		Node n2 = n1.next;
+    		n1.item = 0;
+    		n1 = n2;
+    	}
+    	header.next = null;
+    	count = 0;
         /*
         head = null;
         tail = null;
@@ -227,6 +257,15 @@ public class ListDoubleLinked implements ListTADdouble{
      */
     @Override
     public String toString() {
+    	
+    	Node n = header.next;
+    	StringBuilder msg = new StringBuilder("[ ");
+    	while(n!=null){
+    		msg.append(n.item).append(" ");
+    		n = n.next;
+    	}
+    	msg.append(" ]");
+    	return msg.toString();
         /*
         String aux = "[ ";
         Node ptr = head;
@@ -239,33 +278,64 @@ public class ListDoubleLinked implements ListTADdouble{
         */
     }
 
+    public int somaEntreIndex(int index1, int index2) {
+    	int sum = 0;
+    	Node n = header.next;
+    	for(int i = 0; i<index1; i++) {
+    		n = n.next;
+    	}
+    	for(int ii = index1; ii<=index2; ii++) {
+    		sum += n.item;
+    		n = n.next;
+    	}
+    	return sum;
+    }
+    
+    
+    
 	@Override
 	public void addFirst(int e) {
-		// TODO Auto-generated method stub
-		
+		Node n1 = new Node(e);
+		n1.prev = header;
+    	if(header.next!=null) {
+    		n1.next = header.next;
+    		header.next.prev = n1;
+    	}else {
+    		n1.next = null;
+    	}
+    	header.next = n1;
+    	count++;
 	}
 
 	@Override
 	public int getFirst() {
-		// TODO Auto-generated method stub
-		return 0;
+		  if (header.next == null) {
+		        throw new NoSuchElementException("List is empty");
+		    }
+		int first = header.next.item;
+		return first;
 	}
 
 	@Override
 	public int getLast() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (trailer == null) {
+	        throw new NoSuchElementException("List is empty");
+	    }
+		int last = trailer.item;
+		return last;
 	}
 
 	@Override
 	public int removeFirst() {
-		// TODO Auto-generated method stub
-		return 0;
+		int first = get(0);
+		remove(0);
+		return first;
 	}
 
 	@Override
 	public int removeLast() {
-		// TODO Auto-generated method stub
-		return 0;
+		int last = trailer.item;
+		remove(size()-1);
+		return last;
 	}
 }
