@@ -56,7 +56,16 @@ public class ListaOcorrencias {
      * recebido por parametro, e false caso contrario.
      */
     public boolean add(int numPagina)  {
-        return false;
+    	Node novo = new Node(numPagina);
+    	if(count==0) {
+    		head = novo;
+    		tail = novo;
+    	}else {
+    		tail.next = novo;
+    	}
+    	tail = novo;
+    	count++;
+    	return true;
     }  
     
     /**
@@ -66,7 +75,14 @@ public class ListaOcorrencias {
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */    
     public Integer get(int index) {
-        return 0;
+    	if(index < 0 || index >= size()) {
+    		throw new IndexOutOfBoundsException("Elemento não encontrado!");
+    	}
+    	Node aux = head;
+    	for(int i = 0; i<index; i++) {
+    		aux = aux.next;
+    	}
+    	return aux.numeroDaPagina;
     }
  
     /**
@@ -76,11 +92,25 @@ public class ListaOcorrencias {
      * @return true se a lista contem o elemento especificado
      */
     public boolean contains(int numPagina) {
+    	Node aux = head;
+    	for(int i = 0; i<count; i++) {
+    		if(numPagina==aux.numeroDaPagina) {
+    			return true;
+    		}
+    		aux = aux.next;
+    	}
         return false;
     }    
     
     @Override
     public String toString() {
-        return null;
+    	Node aux = head;
+    	String lin = "[ ";
+    	while(aux!=null) {
+    		lin += aux.numeroDaPagina+" ";
+    		aux = aux.next;
+    	}
+    	lin += "]";
+        return lin;
     }
 }

@@ -64,16 +64,17 @@ public class LinkedListOfString {
      */
     public void orderedAdd (String element)  { 
         // aqui tens de fazer, não está inserindo ordenada
-        Node n = new Node(element);
-        
-        n.prev = header;
-        n.next = header.next;
-        header.next.prev = n;
-        header.next = n;
+    	 Node newNode = new Node(element);
+         Node current = header.next;
+         while (current != trailer && current.element.compareTo(element) < 0) {
+             current = current.next;
+         }
+         newNode.prev = current.prev;
+         newNode.next = current;
+         current.prev.next = newNode;
+         current.prev = newNode;
 
-
-        count++;
-
+         count++;
     }
     
     /**
