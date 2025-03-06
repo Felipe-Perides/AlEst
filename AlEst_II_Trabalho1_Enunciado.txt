@@ -1,0 +1,36 @@
+Algoritmos e Estruturas de Dados II:
+Trabalho 1 
+
+Robôs formam uma longa LINHA numerados de 0 a n-1 e trocam de posição de acordo com uma "RECEITA" de dança pelo robô-mestre
+Os robôs tem que trocar de posição MUITAS VEZES até que a linha de robôs repita alguma linha que já tenha sido dançada
+
+Propostas de "RECEITA":
+Inicia-se com n robôs;
+Depois se organizam em alguma ordem 0 até n-1
+[Exemplo: (7 robôs) 
+7
+5-6-0-4-2-3-1]
+Isso mostra que TODO robô na SEXTA posição irá para posição 0 na próxima rodada, o robô na SÉTIMA posição vai para a PRIMEIRA posição, o robô que estava na posição 0 vai para o SEGUNDO lugar, o robô da PRIMEIRA posição vai para a SÉTIMA, o robô da TERCEIRA vai para a SEXTA posição, o robô da SEGUNDA posição vai para a QUARTA, o robô da QUARTA posição vai para a TERCEIRA. A dança repete sempre os mesmos movimentos.
+*Se essa receita for implementada:
+
+0 1 2 3 4 5 6
+5 6 0 4 2 3 1
+3 1 5 2 0 4 6
+4 6 3 0 5 2 1
+2 1 4 5 3 0 6
+0 6 2 3 4 5 1
+5 1 0 4 2 3 6
+3 6 5 2 0 4 1
+4 1 3 0 5 2 6
+...
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+Missões para o RELATÓRIO:
+1. Qual o problema sendo resolvido;
+2. Como o problema foi modelado;
+3. Como é o processo de solução, apresentando exemplos e algoritmos;
+4. Os resultados e tempos dos casos de teste;
+5. Conclusões;
+
+--Missão Principal--
+Quantas rodadas até a dança acabar por receita

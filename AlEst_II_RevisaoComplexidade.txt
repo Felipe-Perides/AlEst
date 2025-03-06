@@ -1,0 +1,51 @@
+AlEst II:
+	**Saber o algoritmo dos encaminhamentos em largura e em profundidade para a próxima aula
+
+	Complexidade:
+		Classes de Complexidade:
+			1 -> Constante
+			log(n) -> Logarítmica
+				Busca Binária
+			n -> Linear
+				Fatorial
+			n*log(n) -> Log-Linear
+				Merge sort
+				Quick sort
+			n^k -> Polinomial
+				Determinar se uma lista é um subconjunto de outra
+			k^n -> Exponencial
+				Quebrando uma senha por “força bruta” [26^5 --> 26 letras 5 caracteres na senha]
+		Comparando as Classes(Melhor -> Pior):
+			log(n)[log8(n) é melhor que log2(n)] --> n --> n*log(n) --> n² --> n³ --> 2^n
+		Limite Superior e Inferior: Θ(f(n))
+		Limite Superior: O(f(n))
+		Limite Inferior: Ω(f(n))
+
+	Big-Theta:
+		Busca Linear:
+			tempo de execução[pior caso] -> c1*(n+c2)
+		tempo mínimo -> k1*n
+		tempo máximo -> k2*n
+		
+	Big-O:
+		pior caso: Θ(log2n)
+		melhor caso: Θ(1)
+		+Nunca é PIOR que o log, mas às vezes é MELHOR
+		tempo máximo -> k*f(n) [Para um n grande o bastante]
+		Busca Binária:
+			tempo de execução da busca binária sempre é O(log2n)
+			+Não especifica melhor, pior ou caso médio
+	Big-Omega:
+		tempo mínimo -> k*f(n)  [k é uma determinada constante]
+
+
+def fatorial(n):
+	resp = 1                     # 1 passo
+	while n > 1:		     # 1 passo  * n: comparação
+		resp = resp * n	     # 2 passos * n: multiplicação e atrib.
+		n = n - 1	     # 2 passos * n: subtração e atrib.
+	return resp		     # 1 passo
+
+|
+|
+L>  Total de passos: 5n + 2
