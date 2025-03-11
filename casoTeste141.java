@@ -1,14 +1,16 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
-public class casoTeste71 {
+public class casoTeste141 {
 
     public static void main(String[] args) {
 
-        List<Integer> receita = List.of(58, 20, 65, 9, 25, 63, 53, 12, 55, 52, 14, 27, 54, 48, 17, 56, 21, 70, 22, 36, 43, 67, 37, 7, 40, 62, 3, 47, 32, 44, 26, 45, 33, 8, 39, 24, 50, 49, 60, 34, 0, 19, 29, 28, 64, 1, 31, 16, 41, 6, 46, 5, 51, 10, 38, 13, 68, 2, 35, 4, 15, 18, 11, 61, 23, 30, 57, 69, 42, 59, 66);
+        List<Integer> receita = List.of(9, 110, 95, 46, 61, 12, 27, 135, 89, 11, 17, 56, 123, 69, 3, 52, 79, 31, 47, 105, 28, 40, 75, 134, 133, 39, 88, 116, 120, 49, 33, 67, 57, 76, 53, 111, 14, 20, 81, 136, 18, 108, 92, 129, 90, 106, 63, 127, 1, 131, 114, 85, 112, 13, 83, 25, 62, 32, 66, 43, 48, 101, 109, 37, 15, 71, 41, 139, 7, 54, 2, 45, 115, 97, 80, 42, 93, 78, 100, 140, 137, 126, 102, 70, 121, 5, 73, 84, 58, 99, 0, 50, 82, 29, 44, 24, 74, 98, 64, 51, 94, 22, 65, 122, 107, 59, 36, 119, 132, 96, 103, 10, 87, 118, 23, 4, 21, 77, 128, 124, 138, 16, 117, 91, 130, 113, 26, 19, 72, 6, 104, 30, 86, 34, 55, 68, 8, 60, 125, 38, 35);
         System.out.println("Analisando ciclos para uma receita de tamanho " + receita.size());
 
         long inicio = System.currentTimeMillis();
@@ -18,7 +20,7 @@ public class casoTeste71 {
         Map<Long, List<Long>> tamanhosCiclos = new TreeMap<>();
 
         for (Map<String, Object> resultado : resultados) {
-            long tamanho = (long) resultado.get("ciclo_completo");
+            long tamanho = ((Number) resultado.get("ciclo_completo")).longValue();
 
             if (!tamanhosCiclos.containsKey(tamanho)) {
                 tamanhosCiclos.put(tamanho, new ArrayList<>());
@@ -57,20 +59,27 @@ public class casoTeste71 {
         List<Integer> posicoes = new ArrayList<>();
         posicoes.add(posicaoInicial);
 
-        while (true) {
-            posicaoAtual = receita.get(posicaoAtual);
-            iteracao ++;
-            posicoes.add(posicaoAtual);
+        Set<Integer> visitados = new HashSet<>();
 
-            if (posicaoAtual == posicaoInicial) {
-                break;
-            }
-
-            if (iteracao > receita.size() * 2) {
-                System.out.println("Aviso: Possível ciclo infinito detectado para o número na posição " + posicaoInicial);
-                break;
-            }
+    while (true) {
+        if (!visitados.add(posicaoAtual)) { // Se já foi visitado, temos um ciclo
+            System.out.println("Aviso: Ciclo detectado para o número na posição " + posicaoInicial);
+            break;
         }
+
+        posicaoAtual = receita.get(posicaoAtual);
+        iteracao++;
+        posicoes.add(posicaoAtual);
+
+        if (posicaoAtual == posicaoInicial) {
+            break;
+        }
+
+        if (iteracao > receita.size()) { // Reduzi o limite de iterações
+            System.out.println("Aviso: Possível ciclo infinito detectado para o número na posição " + posicaoInicial);
+            break;
+        }
+    }
 
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("posicao_inicial", posicaoInicial);

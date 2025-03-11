@@ -1,50 +1,124 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class casoTeste111 {
+
     public static void main(String[] args) {
-        long inicio = System.nanoTime();
 
-        int n = 111;
-        int[] receita = {
-            21, 86, 81, 80, 25, 64, 61, 101, 50, 94, 54, 91, 16, 7, 88, 109, 44, 32, 55, 9, 38, 41, 77, 2, 47, 53, 36, 104, 85, 11, 99, 42, 60, 14, 51, 24, 75, 17, 92, 48, 105, 67, 110, 15, 69, 71, 95, 33, 72, 6, 100, 82, 79, 102, 106, 66, 43, 22, 103, 27, 56, 59, 31, 12, 4, 96, 34, 89, 35, 87, 39, 76, 49, 57, 3, 84, 10, 108, 37, 18, 90, 58, 45, 62, 19, 26, 68, 28, 5, 0, 8, 63, 1, 65, 93, 46, 70, 107, 83, 78, 74, 97, 13, 52, 29, 73, 23, 20, 98, 30, 40
-        };
+        List<Integer> receita = List.of(21, 86, 81, 80, 25, 64, 61, 101, 50, 94, 54, 91, 16, 7, 88, 109, 44, 32, 55, 9, 38, 41, 77, 2, 47, 53, 36, 104, 85, 11, 99, 42, 60, 14, 51, 24, 75, 17, 92, 48, 105, 67, 110, 15, 69, 71, 95, 33, 72, 6, 100, 82, 79, 102, 106, 66, 43, 22, 103, 27, 56, 59, 31, 12, 4, 96, 34, 89, 35, 87, 39, 76, 49, 57, 3, 84, 10, 108, 37, 18, 90, 58, 45, 62, 19, 26, 68, 28, 5, 0, 8, 63, 1, 65, 93, 46, 70, 107, 83, 78, 74, 97, 13, 52, 29, 73, 23, 20, 98, 30, 40);
+        System.out.println("Analisando ciclos para uma receita de tamanho " + receita.size());
 
-        // Configuração inicial
-        int[] configuracaoInicial = new int[n];
-        for (int i = 0; i < n; i++) {
-            configuracaoInicial[i] = i;
+        long inicio = System.currentTimeMillis();
+
+        List<Map<String, Object>> resultados = analisarTodosCiclos(receita);
+
+        Map<Long, List<Long>> tamanhosCiclos = new TreeMap<>();
+
+        for (Map<String, Object> resultado : resultados) {
+            long tamanho = ((Number) resultado.get("ciclo_completo")).longValue();
+
+            if (!tamanhosCiclos.containsKey(tamanho)) {
+                tamanhosCiclos.put(tamanho, new ArrayList<>());
+            }
+
+            tamanhosCiclos.get(tamanho).add(((Number) resultado.get("posicao_inicial")).longValue());
+
         }
 
-        // Algoritmo de Floyd para detecção de ciclo
-        int[] tartaruga = configuracaoInicial.clone();
-        int[] lebre = configuracaoInicial.clone();
-        
-        int indice = 0;
-        do {
-            tartaruga = aplicarReceita(tartaruga, receita);
-            lebre = aplicarReceita(lebre, receita);
-            lebre = aplicarReceita(lebre, receita);
-            indice++;
-        } while (!Arrays.equals(tartaruga, lebre));
-        
-        // Pronto! O índice é o valor que queremos
-        System.out.println("Configuração repetida encontrada!");
-        System.out.println("Configuração: "+Arrays.toString(lebre));
-        System.out.println("Índice da primeira repetição: " + indice);
+        List<Long> ciclosCompletos = new ArrayList<>();
+        for (Map<String, Object> resultado : resultados) {
+            ciclosCompletos.add((long) resultado.get("ciclo_completo"));
+        }
 
+        String mmcCiclos;
+        try {
+            long mmc = calcularMMC(ciclosCompletos);
+            mmcCiclos = String.valueOf(mmc);
+        } catch (Exception e) {
+            mmcCiclos = "Não foi possível calcular (número muito grande)";
+        }
 
-        long fim = System.nanoTime();
-        long duracao = fim - inicio;
-        System.out.println("Tempo de execução: " + duracao + " nanosegundos");
-        System.out.println("Tempo de execução aproximado: " + (duracao / 1_000_000.0) + " milissegundos");
+        long fim = System.currentTimeMillis();
+        double tempoExecucao = (fim - inicio) / 1000.0;
+
+        System.out.println("\nTempo de execução: " + String.format("%.6f", tempoExecucao) + " segundos");
+
+        System.out.println("\nNúmero de iterações: " + mmcCiclos);
     }
 
     // Aplica a receita de dança a uma configuração
-    private static int[] aplicarReceita(int[] configuracao, int[] receita) {
-        int[] novaConfiguracao = new int[configuracao.length];
-        for (int i = 0; i < configuracao.length; i++) {
-            novaConfiguracao[i] = configuracao[receita[i]];
+    private static Map<String, Object> aplicarReceita(List<Integer> receita, int posicaoInicial) {
+        int posicaoAtual = posicaoInicial;
+        long iteracao = 0;
+
+        List<Integer> posicoes = new ArrayList<>();
+        posicoes.add(posicaoInicial);
+
+        Set<Integer> visitados = new HashSet<>();
+
+    while (true) {
+        if (!visitados.add(posicaoAtual)) { // Se já foi visitado, temos um ciclo
+            System.out.println("Aviso: Ciclo detectado para o número na posição " + posicaoInicial);
+            break;
         }
-        return novaConfiguracao;
+
+        posicaoAtual = receita.get(posicaoAtual);
+        iteracao++;
+        posicoes.add(posicaoAtual);
+
+        if (posicaoAtual == posicaoInicial) {
+            break;
+        }
+
+        if (iteracao > receita.size()) { // Reduzi o limite de iterações
+            System.out.println("Aviso: Possível ciclo infinito detectado para o número na posição " + posicaoInicial);
+            break;
+        }
+    }
+
+        Map<String, Object> resultado = new HashMap<>();
+        resultado.put("posicao_inicial", posicaoInicial);
+        resultado.put("ciclo_completo", iteracao);
+        resultado.put("caminho", posicoes);
+
+        return resultado;
+    }
+
+    private static List<Map<String, Object>> analisarTodosCiclos(List<Integer> receita) {
+        List<Map<String, Object>> resultados = new ArrayList<>();
+
+        for (int i = 0; i < receita.size(); i++) {
+            resultados.add(aplicarReceita(receita, i));
+        }
+
+        return resultados;
+    }
+
+    private static long calcularMMC(List<Long> numeros) {
+        long resultado = numeros.get(0);
+
+        for (int i = 1; i < numeros.size(); i++) {
+            resultado = mmcDoisNumeros(resultado, numeros.get(i));
+        }
+
+        return resultado;
+    }
+
+    private static long mdc(long a, long b) {
+        while (b != 0) {
+            long temp = a;
+            a = b;
+            b = temp % b;
+        }
+        return a;
+    }
+
+    private static long mmcDoisNumeros(long a, long b) {
+        return a * b / mdc(a, b);
     }
 }
