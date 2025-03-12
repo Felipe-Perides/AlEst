@@ -1,5 +1,10 @@
 Casos Teste do Trabalho 1 - AlEst II
 
+Caso Teste 7:
+Analisando ciclos para uma receita de tamanho 7
+Tempo de execução: 0,004000 segundos
+Número de iterações: 10
+
 Caso Teste 71:
 Analisando ciclos para uma receita de tamanho 71
 Tempo de execução: 0,002000 segundos
