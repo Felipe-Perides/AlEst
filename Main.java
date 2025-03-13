@@ -73,13 +73,14 @@ public class Main {
                     break;
                 default:
                     System.out.println("Nenhuma das opções foi escolhida! Escolha novamente.");
+                    System.out.println();
                     break;
             }
         }while(!state);
         input.close();
 
 
-        System.out.println("Analisando ciclos para uma receita de tamanho " + receita.size());
+        System.out.println("\nAnalisando ciclos para uma receita de tamanho " + receita.size()+": ");
 
         long inicio = System.currentTimeMillis();
 
@@ -115,8 +116,7 @@ public class Main {
         double tempoExecucao = (fim - inicio) / 1000.0;
 
         System.out.println("\nTempo de execução: " + String.format("%.6f", tempoExecucao) + " segundos");
-
-        System.out.println("\nNúmero de iterações: " + mmcCiclos);
+        System.out.println("Número de iterações: " + mmcCiclos);
     }
 
     // Aplica a receita de dança a uma configuração

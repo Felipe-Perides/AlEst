@@ -25,10 +25,6 @@ public class teste {
             lebre = aplicarReceita(lebre, receita);
             lebre = aplicarReceita(lebre, receita);
             indice++;
-            System.out.println("Lebre: ");
-            printArray(lebre);
-            System.out.println("Tartaruga: ");
-            printArray(tartaruga);
         } while (!Arrays.equals(tartaruga, lebre));
         
         // Pronto! O índice é o valor que queremos
