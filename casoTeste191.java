@@ -84,7 +84,7 @@ public class casoTeste191 {
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("posicao_inicial", posicaoInicial);
         resultado.put("ciclo_completo", iteracao);
-        resultado.put("caminho", posicoes);
+        resultado.put("posição repetida", posicaoAtual);
 
         return resultado;
     }

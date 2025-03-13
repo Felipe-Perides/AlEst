@@ -10,7 +10,7 @@ public class RoboDanca {
 
     public static void main(String[] args) {
 
-        List<Integer> receita = List.of(5, 6, 0, 4, 2, 3, 1);
+        List<Integer> receita = List.of(4, 2, 0, 5, 1, 6, 3);
         System.out.println("Analisando ciclos para uma receita de tamanho " + receita.size());
 
         long inicio = System.currentTimeMillis();

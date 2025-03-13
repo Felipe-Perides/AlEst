@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class casoTeste71 {
@@ -54,17 +56,19 @@ public class casoTeste71 {
         int posicaoAtual = posicaoInicial;
         long iteracao = 0;
 
-        List<Integer> posicoes = new ArrayList<>();
+        Set<Integer> posicoes = new HashSet<>();
         posicoes.add(posicaoInicial);
 
         while (true) {
             posicaoAtual = receita.get(posicaoAtual);
             iteracao ++;
-            posicoes.add(posicaoAtual);
 
-            if (posicaoAtual == posicaoInicial) {
+            // Se a posição já foi visitada, parar imediatamente
+            if (posicoes.contains(posicaoAtual)) {
                 break;
             }
+
+            posicoes.add(posicaoAtual);
 
             if (iteracao > receita.size() * 2) {
                 System.out.println("Aviso: Possível ciclo infinito detectado para o número na posição " + posicaoInicial);
@@ -75,7 +79,7 @@ public class casoTeste71 {
         Map<String, Object> resultado = new HashMap<>();
         resultado.put("posicao_inicial", posicaoInicial);
         resultado.put("ciclo_completo", iteracao);
-        resultado.put("caminho", posicoes);
+        resultado.put("posição repetida", posicaoAtual);
 
         return resultado;
     }
