@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class grafos{
+public class Grafos{
     protected static final String NEWLINE = System.getProperty("line.separator");
 
     private Map<String, List<String>> graph;
 
-    public grafos(){
+    public Grafos(){
         graph = new HashMap<>();
     }
 
-    public grafos(String arq){
+    public Grafos(String arq){
         this();
         In in = new In(arq);
         String line;

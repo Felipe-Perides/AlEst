@@ -7,7 +7,7 @@ public class appGrafos {
         g.addEdge("2", "1");
         */
 
-        grafos g = new grafos("tinyG.txt");
+        Grafos g = new Grafos("tinyG.txt");
 
         for(String v : g.getVerts()){
             System.out.print(v + ": ");

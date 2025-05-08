@@ -1,4 +1,4 @@
-public class digrafos extends grafos{
+public class digrafos extends Grafos{
     public digrafos(String arq){
         super(arq);
     }
