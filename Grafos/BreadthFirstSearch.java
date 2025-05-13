@@ -14,6 +14,7 @@ public class BreadthFirstSearch{
     private String s;
     
     public BreadthFirstSearch(Grafos g, String s){
+        this.g = g;
         this.s = s;
         marked = new HashMap<>();
         edgeTo = new HashMap<>();

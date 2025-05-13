@@ -19,8 +19,19 @@ public class Grafos{
         In in = new In(arq);
         String line;
         while((line = in.readLine()) != null) {
-        String[] edge = line.split(" ");
-        addEdge(edge[0], edge[1]);
+            /*
+            * String[] edge = line.split(" ");
+            addEdge(edge[0], edge[1]);
+            */
+            String[] part = line.split("/");
+
+            if(part.length < 2) continue; // Pula as linhas mal formatadas
+
+            String movie = part[0];
+            for (int i = 1; i < part.length; i++) {
+                String actor = part[i];
+                addEdge(movie, actor);
+            }
         }
         in.close();
     }
