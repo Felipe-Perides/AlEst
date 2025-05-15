@@ -24,7 +24,7 @@ public class GrauSeparacao {
             for (String v : bfs.pathTo(ator2)) {
                 System.out.println(v);
             }
-            System.out.println("\nGrau de separação: " + (bfs.distTo(ator2) / 2) + "\n"); // Divide por 2 pois passa por filmes
+            System.out.println("\nGrau de separação: " + (bfs.distTo(ator2) / 2) + "\n");
         } else {
             System.out.println("\nNão existe caminho entre os dois atores/atrizes.\n");
         }
