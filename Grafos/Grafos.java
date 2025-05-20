@@ -19,11 +19,12 @@ public class Grafos{
         In in = new In(arq);
         String line;
         while((line = in.readLine()) != null) {
-            /*
-            * String[] edge = line.split(" ");
+            
+            String[] edge = line.split(" ");
             addEdge(edge[0], edge[1]);
-            */
-            String[] part = line.split("/");
+            
+            /*
+             * String[] part = line.split("/");
 
             if(part.length < 2) continue; // Pula as linhas mal formatadas
 
@@ -32,6 +33,7 @@ public class Grafos{
                 String actor = part[i];
                 addEdge(movie, actor);
             }
+             */
         }
         in.close();
     }
@@ -77,6 +79,9 @@ public class Grafos{
       list = new LinkedList<>();
     list.add(w);
     graph.put(v, list);
+    if(!graph.containsKey(w)){
+        graph.put(w, new LinkedList<>());
+    }
     return list;
   }
 }
