@@ -1,0 +1,18 @@
+package Aulas.Grafo;
+
+public class AppBFS {
+    public static void main(String[] args) {
+        Graph g = new Graph("tinyG.txt");
+
+        BreadthFirstSearches bfs = new BreadthFirstSearches(g, "0");
+
+        for (String v : g.getVerts()) {
+            System.out.print(v + ": (" + bfs.distTo(v) + ") ");
+            for (String w : bfs.pathTo(v)) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
+    }
+
+}
